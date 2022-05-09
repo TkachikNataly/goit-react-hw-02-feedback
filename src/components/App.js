@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import FeedbackOptions from './Feedback'
 import Statistics from './Statistics';
 import Section from './Section';
+import NotificationMessage from './Statistics';
 
 
 
@@ -10,13 +11,11 @@ class App extends Component {
         good: 0,
         neutral: 0,
         bad: 0
-    }
+    };
 
-    // buttons = ['Good', 'Neutral', 'Bad'];
 
     onLeaveFeedback = e => {
-        const name = e.currentTarget.innerText.toLowerCase();
-        return this.setState({ [name]: this.state[name] + 1 });
+        return this.setState({ [e]: this.state[e] + 1 });
     };
 
 
@@ -36,35 +35,38 @@ class App extends Component {
         return positiveFeedback;
 
     }
-
-
     render() {
+        const { good, neutral, bad } = this.state;
+        const options = Object.keys(this.state);
         return (
-            <div>
+            <>
 
                 <Section
                     title='Please leave feedback'>
 
                     <FeedbackOptions
-                        options={this.buttons}
+                        options={options}
                         onLeaveFeedback={this.onLeaveFeedback}
                     />
                 </Section>
 
 
-                <Section
-                    title='Statistics'>
+                <Section title="Statistics">
+                    {this.countTotalFeedback() > 0 ? (
+                        <Statistics
+                            good={good}
+                            neutral={neutral}
+                            bad={bad}
+                            total={this.countTotalFeedback()}
+                            positivePercentage={this.countPositiveFeedbackPercentage()}
+                        />
+                    ) : (
+                        <NotificationMessage message="There is no feedback" />
+                    )}
 
-                    <Statistics
-                        good={this.state.good}
-                        neutral={this.state.neutral}
-                        bad={this.state.bad}
-                        total={this.countTotalFeedback()}
-                        positivePercentage={this.countPositiveFeedbackPercentage()}
-                    /> : <notificationMessage message="There is no feedback"></notificationMessage>
                 </Section>
-            </div >
-        )
+            </>
+        );
 
     }
 
@@ -72,6 +74,6 @@ class App extends Component {
 
 
 
-
-
 export default App;
+
+
