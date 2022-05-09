@@ -12,7 +12,7 @@ class App extends Component {
         bad: 0
     }
 
-    buttons = ['Good', 'Neutral', 'Bad'];
+    // buttons = ['Good', 'Neutral', 'Bad'];
 
     onLeaveFeedback = e => {
         const name = e.currentTarget.innerText.toLowerCase();
@@ -61,9 +61,9 @@ class App extends Component {
                         bad={this.state.bad}
                         total={this.countTotalFeedback()}
                         positivePercentage={this.countPositiveFeedbackPercentage()}
-                    />
+                    /> : <notificationMessage message="There is no feedback"></notificationMessage>
                 </Section>
-            </div>
+            </div >
         )
 
     }

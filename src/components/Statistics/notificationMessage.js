@@ -1,10 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 
-const NotificationMessage = () => {
+const NotificationMessage = ({ message }) => {
     return (
-        <p>There is no feedback</p>
-    )
+        <p>{message}</p>
+    );
 }
+NotificationMessage.prototype = {
+    message: PropTypes.string,
+};
 
 export default NotificationMessage;
